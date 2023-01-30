@@ -2,7 +2,7 @@ import React from "react";
 
 interface PlacesContext {
   isLoading: boolean;
-  useLocation?: [number, number];
+  userLocation?: [number, number];
   dispatch: React.Dispatch<any>
 }
 

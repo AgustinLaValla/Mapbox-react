@@ -6,7 +6,7 @@ export const placesReducer = (state: PlacesState = initialState, action: PlacesA
   switch (action.type) {
 
     case "SET_USER_LOCATION":
-      return {...state, isLoading: false, useLocation: action.payload};
+      return {...state, isLoading: false, userLocation: action.payload};
 
     default: return state;
   }

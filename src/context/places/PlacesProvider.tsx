@@ -6,7 +6,7 @@ import { placesReducer } from './PlacesReducer';
 
 export interface PlacesState {
   isLoading: boolean;
-  useLocation?: [number, number];
+  userLocation?: [number, number];
 }
 
 interface PlacesProviderProps {

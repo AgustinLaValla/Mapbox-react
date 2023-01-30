@@ -1,6 +1,7 @@
 import { PlacesProvider } from './context'
+import { HomeScreen } from './screens';
 
-if(!navigator.geolocation) {
+if (!navigator.geolocation) {
   alert('Your browser does not allow geolocation');
   throw new Error('Your browser does not allow geolocation');
 }
@@ -8,7 +9,7 @@ if(!navigator.geolocation) {
 export default function MapboxApp() {
   return (
     <PlacesProvider>
-      <div>Hola Mundo</div>
+      <HomeScreen />
     </PlacesProvider>
   )
 }
