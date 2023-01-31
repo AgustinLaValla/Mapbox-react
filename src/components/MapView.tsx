@@ -3,11 +3,14 @@ import { Map } from 'mapbox-gl';
 
 import { usePlacesContext } from '../context/places/PlacesProvider'
 import Loading from './Loading';
+import { useMapContext } from '../context/maps/MapProvider';
 
 export default function MapView() {
 
   const { isLoading, userLocation } = usePlacesContext();
   const mapRef = React.useRef<HTMLDivElement>(null);
+
+  const { dispatch } = useMapContext();
 
 
 
@@ -19,6 +22,7 @@ export default function MapView() {
       center: userLocation, // starting position [lng, lat]
       zoom: 15, // starting zoom
     });
+    dispatch({ type: 'SET_MAP', payload: map });
   }, [isLoading])
 
   if (isLoading) return <Loading />
