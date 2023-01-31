@@ -1,5 +1,7 @@
-export const getUserLocation = async (): Promise<[number, number]> => {
-  return await new Promise<[number, number]>((resolve, reject) => {
+import { LngLatLike } from "mapbox-gl";
+
+export const getUserLocation = async (): Promise<LngLatLike> => {
+  return await new Promise<LngLatLike>((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => resolve([coords.longitude, coords.latitude]),
       (err) => {

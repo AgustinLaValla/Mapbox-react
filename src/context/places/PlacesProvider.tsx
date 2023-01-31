@@ -1,3 +1,4 @@
+import { LngLatLike } from 'mapbox-gl';
 import React from 'react'
 import { getUserLocation } from '../../helpers';
 import { PlacesContext } from './PlacesContext';
@@ -6,7 +7,7 @@ import { placesReducer } from './PlacesReducer';
 
 export interface PlacesState {
   isLoading: boolean;
-  userLocation?: [number, number];
+  userLocation?: LngLatLike;
 }
 
 interface PlacesProviderProps {

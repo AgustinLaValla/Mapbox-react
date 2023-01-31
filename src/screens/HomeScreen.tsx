@@ -1,7 +1,10 @@
-import { MapView } from '../components'
+import { BtnMyLocation, MapView } from '../components'
 
 export default function HomeScreen() {
   return (
-    <MapView/>
+    <div>
+      <MapView />
+      <BtnMyLocation />
+    </div>
   )
 }
