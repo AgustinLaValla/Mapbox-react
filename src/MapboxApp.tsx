@@ -1,4 +1,4 @@
-import { PlacesProvider } from './context'
+import { Providers } from './Providers';
 import { HomeScreen } from './screens';
 
 if (!navigator.geolocation) {
@@ -8,8 +8,9 @@ if (!navigator.geolocation) {
 
 export default function MapboxApp() {
   return (
-    <PlacesProvider>
+    <Providers>
       <HomeScreen />
-    </PlacesProvider>
+    </Providers>
+
   )
 }

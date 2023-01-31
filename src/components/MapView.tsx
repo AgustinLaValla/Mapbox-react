@@ -12,8 +12,6 @@ export default function MapView() {
 
   const { dispatch } = useMapContext();
 
-
-
   React.useLayoutEffect(() => {
     if (isLoading) return;
     const map = new Map({
