@@ -1,9 +1,10 @@
 import React from "react";
+import { PlacesActions } from "./actions";
 
 interface PlacesContext {
   isLoading: boolean;
   userLocation?: [number, number];
-  dispatch: React.Dispatch<any>
+  dispatch: React.Dispatch<PlacesActions>
 }
 
 
