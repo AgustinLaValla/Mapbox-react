@@ -1,5 +1,3 @@
-import { LngLatLike } from 'mapbox-gl';
-import React from 'react'
 import { useMapContext } from '../context/maps/MapProvider';
 import { usePlacesContext } from '../context/places/PlacesProvider'
 

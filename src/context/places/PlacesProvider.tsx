@@ -1,13 +1,16 @@
-import { LngLatLike } from 'mapbox-gl';
 import React from 'react'
+import { searchApi } from '../../apis';
 import { getUserLocation } from '../../helpers';
+import { Feature, PlacesResponse } from '../../interfaces/PlacesResponse.interface';
 import { PlacesContext } from './PlacesContext';
 import { placesReducer } from './PlacesReducer';
 
 
 export interface PlacesState {
   isLoading: boolean;
-  userLocation?: LngLatLike;
+  userLocation?: [number, number];
+  isLoadingPlaces: boolean;
+  places: Feature[];
 }
 
 interface PlacesProviderProps {
@@ -15,12 +18,29 @@ interface PlacesProviderProps {
 }
 
 export const initialState: PlacesState = {
-  isLoading: true
+  isLoading: true,
+  isLoadingPlaces: false,
+  places: []
 }
 
 
 export const PlacesProvider = ({ children }: PlacesProviderProps) => {
   const [state, dispatch] = React.useReducer(placesReducer, initialState);
+
+  const searchPlaceByQuery = async (query: string) => {
+    if (!query.length) return []
+    if (!state.userLocation) throw new Error('There is no user location');
+
+    dispatch({type: 'SET_LOADING_PLACES'});
+    
+    const { data } = await searchApi.get<PlacesResponse>(
+      `/${query}.json`,
+      { params: { proximity: (state.userLocation).join(',') } }
+    );
+
+    return data.features
+  }
+
 
   React.useEffect(() => {
     getUserLocation().then(location => {
@@ -29,7 +49,7 @@ export const PlacesProvider = ({ children }: PlacesProviderProps) => {
   }, [])
 
   return (
-    <PlacesContext.Provider value={{ ...state, dispatch }}>
+    <PlacesContext.Provider value={{ ...state, dispatch, searchPlaceByQuery }}>
       {children}
     </PlacesContext.Provider>
   )

@@ -1,15 +1,13 @@
-import { LngLatLike } from "mapbox-gl";
 import React from "react";
+import { Feature } from "../../interfaces/PlacesResponse.interface";
 import { PlacesActions } from "./actions";
 
-interface PlacesContext {
+interface PlacesContextProps {
   isLoading: boolean;
-  userLocation?: LngLatLike;
-  dispatch: React.Dispatch<PlacesActions>
+  userLocation?: [number, number];
+  dispatch: React.Dispatch<PlacesActions>;
+  searchPlaceByQuery: (query: string) => Promise<Feature[]>
 }
 
 
-export const PlacesContext = React.createContext<PlacesContext>({
-  isLoading: true,
-  dispatch: () => { }
-});
+export const PlacesContext = React.createContext<PlacesContextProps>({} as PlacesContextProps);
