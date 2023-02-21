@@ -6,7 +6,11 @@ interface PlacesContextProps {
   isLoading: boolean;
   userLocation?: [number, number];
   dispatch: React.Dispatch<PlacesActions>;
-  searchPlaceByQuery: (query: string) => Promise<Feature[]>
+  isLoadingPlaces: boolean;
+  places: Feature[];
+  
+  //methods
+  searchPlaceByQuery: (query: string) => Promise<Feature[]>;
 }
 
 

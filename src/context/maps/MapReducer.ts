@@ -9,6 +9,12 @@ export const mapsReducer = (state: MapState, action: MapAction): MapState => {
         map: action.payload,
         isMapReady: true
       }
+
+    case 'SET_MARKERS':
+      return {
+        ...state,
+        markers: action.payload
+      }
     default: return state;
   }
 };

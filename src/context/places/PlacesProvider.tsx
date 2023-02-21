@@ -28,15 +28,20 @@ export const PlacesProvider = ({ children }: PlacesProviderProps) => {
   const [state, dispatch] = React.useReducer(placesReducer, initialState);
 
   const searchPlaceByQuery = async (query: string) => {
-    if (!query.length) return []
+    if (!query.length) {
+      dispatch({type: 'SET_PLACES', payload: []})
+      return [];
+    }
     if (!state.userLocation) throw new Error('There is no user location');
 
-    dispatch({type: 'SET_LOADING_PLACES'});
-    
+    dispatch({ type: 'SET_LOADING_PLACES' });
+
     const { data } = await searchApi.get<PlacesResponse>(
       `/${query}.json`,
       { params: { proximity: (state.userLocation).join(',') } }
     );
+
+    dispatch({ type: 'SET_PLACES', payload: data.features });
 
     return data.features
   }

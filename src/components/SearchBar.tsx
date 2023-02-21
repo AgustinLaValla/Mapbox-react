@@ -2,10 +2,11 @@ import React from 'react'
 import { searchApi } from '../apis';
 import { useMapContext } from '../context/maps/MapProvider';
 import { usePlacesContext } from '../context/places/PlacesProvider';
+import { SearchResult } from './SearchResult';
 
 export const SearchBar = () => {
 
-  const { searchPlaceByQuery, dispatch } = usePlacesContext();
+  const { searchPlaceByQuery } = usePlacesContext();
   const { map } = useMapContext();
   const debunceRef = React.useRef<NodeJS.Timeout>();
 
@@ -16,8 +17,7 @@ export const SearchBar = () => {
     debunceRef.current = setTimeout( async () => {
       if(!map) return;
       //some code to search place
-      const features = await searchPlaceByQuery(value);
-      dispatch({type: 'SET_PLACES', payload: features});
+      await searchPlaceByQuery(value);
     }, 500);
 
   }
@@ -30,6 +30,8 @@ export const SearchBar = () => {
         placeholder='search place...'
         onChange={onInputChange}
       />
+
+      <SearchResult/>
     </div>
   )
 }
