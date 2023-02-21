@@ -11,6 +11,7 @@ export interface PlacesState {
   userLocation?: [number, number];
   isLoadingPlaces: boolean;
   places: Feature[];
+  selectedPlace: Feature | undefined | null;
 }
 
 interface PlacesProviderProps {
@@ -20,7 +21,8 @@ interface PlacesProviderProps {
 export const initialState: PlacesState = {
   isLoading: true,
   isLoadingPlaces: false,
-  places: []
+  places: [],
+  selectedPlace: undefined
 }
 
 
@@ -29,7 +31,7 @@ export const PlacesProvider = ({ children }: PlacesProviderProps) => {
 
   const searchPlaceByQuery = async (query: string) => {
     if (!query.length) {
-      dispatch({type: 'SET_PLACES', payload: []})
+      dispatch({ type: 'SET_PLACES', payload: [] })
       return [];
     }
     if (!state.userLocation) throw new Error('There is no user location');
@@ -46,6 +48,9 @@ export const PlacesProvider = ({ children }: PlacesProviderProps) => {
     return data.features
   }
 
+  const setSelectedPlace = (place: Feature) =>
+    dispatch({ type: 'SET_SELECTED_PLACE', payload: place })
+
 
   React.useEffect(() => {
     getUserLocation().then(location => {
@@ -54,7 +59,7 @@ export const PlacesProvider = ({ children }: PlacesProviderProps) => {
   }, [])
 
   return (
-    <PlacesContext.Provider value={{ ...state, dispatch, searchPlaceByQuery }}>
+    <PlacesContext.Provider value={{ ...state, dispatch, searchPlaceByQuery, setSelectedPlace }}>
       {children}
     </PlacesContext.Provider>
   )

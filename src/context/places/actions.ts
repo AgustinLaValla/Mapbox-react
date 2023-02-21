@@ -6,4 +6,6 @@ interface SetPlaces { type: 'SET_PLACES', payload: Feature[] }
 
 interface SetLoadingPlaces { type: 'SET_LOADING_PLACES', payload?: void }
 
-export type PlacesActions = SetUserLocation | SetPlaces | SetLoadingPlaces; 
+interface SetSelectedPlace { type: 'SET_SELECTED_PLACE', payload: Feature }
+
+export type PlacesActions = SetUserLocation | SetPlaces | SetLoadingPlaces | SetSelectedPlace; 
