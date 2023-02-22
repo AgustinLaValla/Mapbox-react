@@ -39,7 +39,7 @@ export const PlaceItem = ({ place }: PlaceItemProps) => {
       <div
         className={`btn btn-sm btn-${isPlaceSeleceted() ? 'outline-light' : 'outline-primary'}`}
         style={{ width: "fit-content" }}
-
+        onClick={() => userLocation && getRouteBetweenPoints(userLocation, place.center)}
       >
         Directions
       </div>

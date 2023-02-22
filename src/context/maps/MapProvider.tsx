@@ -24,8 +24,17 @@ export const MapProvider = ({ children }: MapProviderProps) => {
   const { places } = usePlacesContext();
 
   const getRouteBetweenPoints = async (start: MapCoordinate, end: MapCoordinate) => {
-    // const resp = await directionApi.get<DirectionResponse>(`/${start.join(',')};${end.join(',')}`);
-    // console.log(resp)
+    const { data } = await directionApi.get<DirectionResponse>(`/${start.join(',')};${end.join(',')}`);
+
+    if(data.code === 'NoRoute') alert('No route found');
+
+    const { distance, duration, geometry } = data.routes[0];
+
+    let kms = distance / 1000;
+    kms = Math.round(kms * 100) / 100;
+
+    const minutes = duration / 60;
+
   }
 
   React.useEffect(() => {
