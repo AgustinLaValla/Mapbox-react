@@ -9,8 +9,8 @@ type PlaceItemProps = {
 
 export const PlaceItem = ({ place }: PlaceItemProps) => {
 
-  const { selectedPlace, setSelectedPlace } = usePlacesContext();
-  const { map } = useMapContext();
+  const { selectedPlace, setSelectedPlace, userLocation } = usePlacesContext();
+  const { map, getRouteBetweenPoints } = useMapContext();
   const { place_name, text, center } = place;
 
   const onPlaceClicked = () => {
@@ -39,6 +39,7 @@ export const PlaceItem = ({ place }: PlaceItemProps) => {
       <div
         className={`btn btn-sm btn-${isPlaceSeleceted() ? 'outline-light' : 'outline-primary'}`}
         style={{ width: "fit-content" }}
+
       >
         Directions
       </div>

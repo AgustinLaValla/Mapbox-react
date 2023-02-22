@@ -1,5 +1,8 @@
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React from 'react'
+import { directionApi } from '../../apis';
+import { DirectionResponse } from '../../interfaces/DirectionResponse.interface';
+import { MapCoordinate } from '../../interfaces/MapCoordinate.interface';
 import { usePlacesContext } from '../places/PlacesProvider';
 import { MapContext } from './MapContext'
 import { mapsReducer } from './MapReducer';
@@ -20,6 +23,11 @@ export const MapProvider = ({ children }: MapProviderProps) => {
   const [state, dispatch] = React.useReducer(mapsReducer, initialState);
   const { places } = usePlacesContext();
 
+  const getRouteBetweenPoints = async (start: MapCoordinate, end: MapCoordinate) => {
+    // const resp = await directionApi.get<DirectionResponse>(`/${start.join(',')};${end.join(',')}`);
+    // console.log(resp)
+  }
+
   React.useEffect(() => {
     state.markers.forEach(marker => marker.remove());
     const newMarkers: Marker[] = [];
@@ -35,13 +43,13 @@ export const MapProvider = ({ children }: MapProviderProps) => {
 
       const newMarker = new Marker().setPopup(popup).setLngLat([lng, lat]).addTo(state.map!);
       newMarkers.push(newMarker);
-      dispatch({type: 'SET_MARKERS', payload: newMarkers})
+      dispatch({ type: 'SET_MARKERS', payload: newMarkers });
     }
 
   }, [places])
 
   return (
-    <MapContext.Provider value={{ ...state, dispatch }}>
+    <MapContext.Provider value={{ ...state, dispatch, getRouteBetweenPoints }}>
       {children}
     </MapContext.Provider>
   )
